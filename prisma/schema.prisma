@@ -1,0 +1,175 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String             @id @default(cuid())
+  clerkId           String             @unique
+  role              Role               @default(USER)
+  profile           Profile?
+  trainer           Trainer?
+  progresses        Progress[]
+  workoutPrograms   WorkoutProgram[]
+  nutritionPrograms NutritionProgram[]
+  ClientPackage     ClientPackage[]
+  Session           Session[]
+}
+
+model Profile {
+  id              String @id @default(cuid())
+  userId          String @unique
+  age             Int
+  weight          Float
+  height          Float
+  fatPercentage   Float?
+  muscleMass      Float?
+  activityLevel   String
+  goal            String
+  sportExperience String
+  disieaseHistory String
+  injuryHistory   String
+  allergies       String
+  user            User   @relation(fields: [userId], references: [id])
+}
+
+model Trainer {
+  id       String    @id @default(cuid())
+  userId   String    @unique
+  packages Package[]
+  sessions Session[]
+  user     User      @relation(fields: [userId], references: [id])
+}
+
+model Package {
+  id          String          @id @default(cuid())
+  trainerId   String
+  title       String
+  description String
+  price       Float
+  trainer     Trainer         @relation(fields: [trainerId], references: [id])
+  clients     ClientPackage[]
+}
+
+model ClientPackage {
+  id        String  @id @default(cuid())
+  userId    String
+  packageId String
+  package   Package @relation(fields: [packageId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+}
+
+model Progress {
+  id     String   @id @default(cuid())
+  userId String
+  date   DateTime
+  title  String
+  notes  String
+  user   User     @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  trainerId String
+  title     String
+  date      DateTime
+  userId    String
+  attended  Boolean  @default(false)
+  trainer   Trainer  @relation(fields: [trainerId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  USER
+  TRAINER
+}
+
+//
+// ANTREMAN PROGRAMI
+//
+
+model WorkoutProgram {
+  id     String       @id @default(cuid())
+  userId String
+  title  String
+  user   User         @relation(fields: [userId], references: [id])
+  days   WorkoutDay[]
+}
+
+model WorkoutDay {
+  id        String            @id @default(cuid())
+  programId String
+  dayName   String // "Pazartesi", "Göğüs Günü", vb.
+  program   WorkoutProgram    @relation(fields: [programId], references: [id])
+  exercises WorkoutExercise[]
+}
+
+model WorkoutExercise {
+  id          String     @id @default(cuid())
+  dayId       String
+  exerciseId  String
+  sets        Int
+  reps        Int
+  restSeconds Int
+  day         WorkoutDay @relation(fields: [dayId], references: [id])
+  exercise    Exercise   @relation(fields: [exerciseId], references: [id])
+}
+
+model Exercise {
+  id            String            @id @default(cuid())
+  name          String
+  description   String
+  videoUrl      String?
+  workoutUsages WorkoutExercise[]
+}
+
+//
+// BESLENME PROGRAMI
+//
+
+model NutritionProgram {
+  id     String @id @default(cuid())
+  userId String
+  title  String
+  user   User   @relation(fields: [userId], references: [id])
+  meals  Meal[]
+}
+
+model Meal {
+  id        String           @id @default(cuid())
+  programId String
+  name      String // "Kahvaltı", "Öğle", "Pre-workout"
+  time      String? // "08:00", "12:30" gibi
+  program   NutritionProgram @relation(fields: [programId], references: [id])
+  items     MealItem[]
+}
+
+model MealItem {
+  id       String @id @default(cuid())
+  mealId   String
+  foodId   String
+  quantity Float // gram veya porsiyon
+  meal     Meal   @relation(fields: [mealId], references: [id])
+  food     Food   @relation(fields: [foodId], references: [id])
+}
+
+model Food {
+  id         String     @id @default(cuid())
+  name       String
+  calories   Float
+  protein    Float
+  carbs      Float
+  fat        Float
+  mealUsages MealItem[]
+}
