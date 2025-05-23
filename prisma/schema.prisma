@@ -58,6 +58,8 @@ model Package {
   title       String
   description String
   price       Float
+  duration    Int // gün cinsinden
+  createdAt   DateTime        @default(now())
   trainer     Trainer         @relation(fields: [trainerId], references: [id])
   clients     ClientPackage[]
 }

@@ -9,7 +9,11 @@ export class ExerciseController {
 
         switch (method) {
             case 'GET':
-                return Response.json(await this.service.getAllExercises());
+                {
+                    const id = req.nextUrl.searchParams.get('id');
+                    if (id) return Response.json(await this.service.getExerciseById(id));
+                    return Response.json(await this.service.getAllExercises());
+                }
             case 'POST':
                 const body = await req.json();
                 return Response.json(await this.service.createExercise(body));
