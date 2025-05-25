@@ -14,7 +14,17 @@ const workoutExerciseRepository = new WorkoutExerciseRepository();
 const workoutExerciseService = new WorkoutExerciseService(workoutExerciseRepository);
 const workoutExerciseController = new WorkoutExerciseController(workoutExerciseService);
 
+
+import { WorkoutDayRepository } from '@/backend/modules/workoutDay/workoutDay.repository';
+import { WorkoutDayService } from '@/backend/modules/workoutDay/workoutDay.service';
+import { WorkoutDayController } from '@/backend/modules/workoutDay/workoutDay.controller';
+
+const workoutDayRepository = new WorkoutDayRepository();
+const workoutDayService = new WorkoutDayService(workoutDayRepository);
+const workoutDayController = new WorkoutDayController(workoutDayService);
+
 export const container = {
     exerciseController,
-    workoutExerciseController
+    workoutExerciseController,
+    workoutDayController,
 };
