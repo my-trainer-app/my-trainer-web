@@ -1,11 +1,5 @@
 import api from '@/client/lib/axios';
-
-export interface Exercise {
-    id: string;
-    name: string;
-    description?: string;
-    videoUrl?: string;
-}
+import { Exercise } from '../model/Exercise';
 
 export const getExercises = async (): Promise<Exercise[]> => {
     const res = await api.get('/api/exercise');

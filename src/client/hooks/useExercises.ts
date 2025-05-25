@@ -5,8 +5,8 @@ import {
     createExercise,
     updateExercise,
     deleteExercise,
-    Exercise
 } from '@/client/services/exerciseService';
+import { Exercise } from '../model/Exercise';
 
 export const useExercises = () => {
     const queryClient = useQueryClient();
