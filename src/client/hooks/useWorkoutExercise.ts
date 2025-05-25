@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createWorkoutExercise, deleteWorkoutExercise, getWorkoutExercises, getWorkoutExercisesById, updateWorkoutExercise } from "@/client/services/workoutExercise";
 import { WorkoutExercise } from "@/client/model/WorkoutExercise";
+
 export const useWorkoutExercise = () => {
     const queryClient = useQueryClient();
 

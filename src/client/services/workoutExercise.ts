@@ -6,7 +6,7 @@ export const getWorkoutExercises = async (): Promise<WorkoutExercise[]> => {
     return res.data;
 }
 
-export constgetWorkoutExercisesById = async (id: string): Promise<WorkoutExercise> => {
+export const getWorkoutExercisesById = async (id: string): Promise<WorkoutExercise> => {
     const res = await api.get(`/api/workoutExercise?id=${id}`);
     return res.data;
 };

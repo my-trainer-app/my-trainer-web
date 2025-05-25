@@ -7,11 +7,11 @@ export class WorkoutDayRepository {
     }
 
     async findAll() {
-        return prisma.workoutDay.findMany();
+        return prisma.workoutDay.findMany({ include: { exercises: true } });
     }
 
     async findById(id: string) {
-        return prisma.workoutDay.findUnique({ where: { id } });
+        return prisma.workoutDay.findUnique({ where: { id }, include: { exercises: true } });
     }
 
     async update(data: { id: string; programId?: string; dayName?: string }) {
