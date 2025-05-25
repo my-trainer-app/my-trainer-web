@@ -6,6 +6,11 @@ export const getExercises = async (): Promise<Exercise[]> => {
     return res.data;
 };
 
+export const getExerciseById = async (id: string): Promise<Exercise> => {
+    const res = await api.get(`/api/exercise?id=${id}`);
+    return res.data;
+};
+
 export const createExercise = async (data: Omit<Exercise, 'id'>): Promise<Exercise> => {
     const res = await api.post('/api/exercise', data);
     return res.data;

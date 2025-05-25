@@ -5,6 +5,7 @@ import {
     createExercise,
     updateExercise,
     deleteExercise,
+    getExerciseById,
 } from '@/client/services/exerciseService';
 import { Exercise } from '../model/Exercise';
 
@@ -14,6 +15,11 @@ export const useExercises = () => {
     const query = useQuery({
         queryKey: ['exercises'],
         queryFn: getExercises
+    });
+
+    const queryWithId = (id: string) => useQuery({
+        queryKey: ['exercises', id],
+        queryFn: () => getExerciseById(id)
     });
 
     const create = useMutation({
@@ -31,5 +37,5 @@ export const useExercises = () => {
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['exercises'] }),
     });
 
-    return { query, create, update, remove };
+    return { query, queryWithId, create, update, remove };
 };
