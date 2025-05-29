@@ -23,8 +23,19 @@ const workoutDayRepository = new WorkoutDayRepository();
 const workoutDayService = new WorkoutDayService(workoutDayRepository);
 const workoutDayController = new WorkoutDayController(workoutDayService);
 
+
+import { WorkoutProgramRepository } from '@/backend/modules/workoutProgram/workoutProgram.repository';
+import { WorkoutProgramService } from '@/backend/modules/workoutProgram/workoutProgram.service';
+import { WorkoutProgramController } from '@/backend/modules/workoutProgram/workoutProgram.controller';
+
+const workoutProgramRepository = new WorkoutProgramRepository();
+const workoutProgramService = new WorkoutProgramService(workoutProgramRepository);
+const workoutProgramController = new WorkoutProgramController(workoutProgramService);
+
+
 export const container = {
     exerciseController,
     workoutExerciseController,
     workoutDayController,
+    workoutProgramController
 };
