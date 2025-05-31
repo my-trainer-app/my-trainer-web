@@ -34,10 +34,16 @@ import { FoodRepository } from '@/backend/modules/food/food.repository';
 import { FoodService } from '@/backend/modules/food/food.service';
 import { FoodController } from '@/backend/modules/food/food.controller';
 
+import { MealItemRepository } from '@/backend/modules/mealItem/mealItem.repository';
+import { MealItemService } from '@/backend/modules/mealItem/mealItem.service';
+import { MealItemController } from '@/backend/modules/mealItem/mealItem.controller';
+
+
 export const container = {
     exerciseController: registerModule(ExerciseRepository, ExerciseService, ExerciseController),
     workoutExerciseController: registerModule(WorkoutExerciseRepository, WorkoutExerciseService, WorkoutExerciseController),
     workoutDayController: registerModule(WorkoutDayRepository, WorkoutDayService, WorkoutDayController),
     workoutProgramController: registerModule(WorkoutProgramRepository, WorkoutProgramService, WorkoutProgramController),
     foodController: registerModule(FoodRepository, FoodService, FoodController),
+    mealItemController: registerModule(MealItemRepository, MealItemService, MealItemController)
 };
