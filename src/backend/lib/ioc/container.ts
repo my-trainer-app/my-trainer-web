@@ -38,6 +38,9 @@ import { MealItemRepository } from '@/backend/modules/mealItem/mealItem.reposito
 import { MealItemService } from '@/backend/modules/mealItem/mealItem.service';
 import { MealItemController } from '@/backend/modules/mealItem/mealItem.controller';
 
+import { MealRepository } from '@/backend/modules/meal/meal.repository';
+import { MealService } from '@/backend/modules/meal/meal.service';
+import { MealController } from '@/backend/modules/meal/meal.controller';
 
 export const container = {
     exerciseController: registerModule(ExerciseRepository, ExerciseService, ExerciseController),
