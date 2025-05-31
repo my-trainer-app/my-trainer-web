@@ -1,41 +1,43 @@
+type Module = {
+    repository: any;
+    service: any;
+    controller: any;
+};
+
+function registerModule<T extends Module>(
+    Repository: new () => T['repository'],
+    Service: new (repository: T['repository']) => T['service'],
+    Controller: new (service: T['service']) => T['controller']
+): T['controller'] {
+    const repository = new Repository();
+    const service = new Service(repository);
+    return new Controller(service);
+}
+
 import { ExerciseRepository } from '@/backend/modules/exercise/exercise.repository';
 import { ExerciseService } from '@/backend/modules/exercise/exercise.service';
 import { ExerciseController } from '@/backend/modules/exercise/exercise.controller';
-
-const exerciseRepository = new ExerciseRepository();
-const exerciseService = new ExerciseService(exerciseRepository);
-const exerciseController = new ExerciseController(exerciseService);
 
 import { WorkoutExerciseRepository } from '@/backend/modules/workoutExercise/workoutExercise.repository';
 import { WorkoutExerciseService } from '@/backend/modules/workoutExercise/workoutExercise.service';
 import { WorkoutExerciseController } from '@/backend/modules/workoutExercise/workoutExercise.controller';
 
-const workoutExerciseRepository = new WorkoutExerciseRepository();
-const workoutExerciseService = new WorkoutExerciseService(workoutExerciseRepository);
-const workoutExerciseController = new WorkoutExerciseController(workoutExerciseService);
-
-
 import { WorkoutDayRepository } from '@/backend/modules/workoutDay/workoutDay.repository';
 import { WorkoutDayService } from '@/backend/modules/workoutDay/workoutDay.service';
 import { WorkoutDayController } from '@/backend/modules/workoutDay/workoutDay.controller';
-
-const workoutDayRepository = new WorkoutDayRepository();
-const workoutDayService = new WorkoutDayService(workoutDayRepository);
-const workoutDayController = new WorkoutDayController(workoutDayService);
-
 
 import { WorkoutProgramRepository } from '@/backend/modules/workoutProgram/workoutProgram.repository';
 import { WorkoutProgramService } from '@/backend/modules/workoutProgram/workoutProgram.service';
 import { WorkoutProgramController } from '@/backend/modules/workoutProgram/workoutProgram.controller';
 
-const workoutProgramRepository = new WorkoutProgramRepository();
-const workoutProgramService = new WorkoutProgramService(workoutProgramRepository);
-const workoutProgramController = new WorkoutProgramController(workoutProgramService);
-
+import { FoodRepository } from '@/backend/modules/food/food.repository';
+import { FoodService } from '@/backend/modules/food/food.service';
+import { FoodController } from '@/backend/modules/food/food.controller';
 
 export const container = {
-    exerciseController,
-    workoutExerciseController,
-    workoutDayController,
-    workoutProgramController
+    exerciseController: registerModule(ExerciseRepository, ExerciseService, ExerciseController),
+    workoutExerciseController: registerModule(WorkoutExerciseRepository, WorkoutExerciseService, WorkoutExerciseController),
+    workoutDayController: registerModule(WorkoutDayRepository, WorkoutDayService, WorkoutDayController),
+    workoutProgramController: registerModule(WorkoutProgramRepository, WorkoutProgramService, WorkoutProgramController),
+    foodController: registerModule(FoodRepository, FoodService, FoodController),
 };
