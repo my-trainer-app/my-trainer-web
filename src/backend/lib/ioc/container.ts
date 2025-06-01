@@ -46,6 +46,15 @@ import { NutritionProgramRepository } from '@/backend/modules/nutritionProgram/n
 import { NutritionProgramService } from '@/backend/modules/nutritionProgram/nutritionProgram.service';
 import { NutritionProgramController } from '@/backend/modules/nutritionProgram/nutritionProgram.controller';
 
+
+import { UserRepository } from '@/backend/modules/user/user.repository';
+import { UserService } from '@/backend/modules/user/user.service';
+import { UserController } from '@/backend/modules/user/user.controller';
+
+import { ProfileRepository } from '@/backend/modules/profile/profile.repository';
+import { ProfileService } from '@/backend/modules/profile/profile.service';
+import { ProfileController } from '@/backend/modules/profile/profile.controller';
+
 export const container = {
     exerciseController: registerModule(ExerciseRepository, ExerciseService, ExerciseController),
     workoutExerciseController: registerModule(WorkoutExerciseRepository, WorkoutExerciseService, WorkoutExerciseController),
@@ -54,6 +63,7 @@ export const container = {
     foodController: registerModule(FoodRepository, FoodService, FoodController),
     mealItemController: registerModule(MealItemRepository, MealItemService, MealItemController),
     mealController: registerModule(MealRepository, MealService, MealController),
-    nutritionProgramController: registerModule(NutritionProgramRepository, NutritionProgramService, NutritionProgramController)
-
+    nutritionProgramController: registerModule(NutritionProgramRepository, NutritionProgramService, NutritionProgramController),
+    userController: registerModule(UserRepository, UserService, UserController),
+    profileController: registerModule(ProfileRepository, ProfileService, ProfileController),
 };

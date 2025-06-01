@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     if (!userId) {
         return Response.json('Unauthorized', { status: 401 })
     }
-    return container.mealItemController.handle(req);
+    return container.profileController.handle(req);
 }
 
 export async function POST(req: NextRequest) {
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     if (!userId) {
         return Response.json('Unauthorized', { status: 401 })
     }
-    return container.mealItemController.handle(req);
+    return container.profileController.handle(req);
 }
 
 export async function PUT(req: NextRequest) {
@@ -26,7 +26,7 @@ export async function PUT(req: NextRequest) {
     if (!userId) {
         return Response.json('Unauthorized', { status: 401 })
     }
-    return container.mealItemController.handle(req);
+    return container.profileController.handle(req);
 }
 
 export async function DELETE(req: NextRequest) {
@@ -35,5 +35,5 @@ export async function DELETE(req: NextRequest) {
     if (!userId) {
         return Response.json('Unauthorized', { status: 401 })
     }
-    return container.mealItemController.handle(req);
+    return container.profileController.handle(req);
 }
